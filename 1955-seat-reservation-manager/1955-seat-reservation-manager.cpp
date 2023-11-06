@@ -1,22 +1,42 @@
+// class SeatManager {
+// public:
+//     set<int>s;
+//     SeatManager(int n) {
+//         for(int i=1;i<=n;i++)
+//         s.insert(i);
+//     }
+    
+//     int reserve() {
+//         int x = *s.begin();
+//         s.erase(x);
+//         return x;
+//     }
+    
+//     void unreserve(int seatNumber) {
+//         s.insert(seatNumber);
+//     }
+// };
 class SeatManager {
-public:
-    set<int>s;
-    SeatManager(int n) {
-        for(int i=1;i<=n;i++)
-        s.insert(i);
-    }
-    
-    int reserve() {
-        int x = *s.begin();
-        s.erase(x);
-        return x;
-    }
-    
-    void unreserve(int seatNumber) {
-        s.insert(seatNumber);
-    }
-};
+ public:
+  SeatManager(int n) {}
 
+  int reserve() {
+    if (minHeap.empty())
+      return ++num;
+
+    const int minNum = minHeap.top();
+    minHeap.pop();
+    return minNum;
+  }
+
+  void unreserve(int seatNumber) {
+    minHeap.push(seatNumber);
+  }
+
+ private:
+  priority_queue<int, vector<int>, greater<>> minHeap;
+  int num = 0;
+};
 /**
  * Your SeatManager object will be instantiated and called as such:
  * SeatManager* obj = new SeatManager(n);
